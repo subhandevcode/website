@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explore Religions</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #3e0a64, #6d1ebd);
+      color: white;
+    } */
+    body {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #3e0a64, #6d1ebd, #210334);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.3s ease;
+      z-index: 2;
+    }
+
+    .back-btn:hover {
+      background-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 20px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      background: -webkit-linear-gradient(#ffffff, #ddd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+    }
+
+    #searchInput {
+      width: 100%;
+      max-width: 400px;
+      padding: 12px 18px;
+      margin-bottom: 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      outline: none;
+      color: #333;
+    }
+
+    .religion-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      width: 100%;
+    }
+
+    .religion-item {
+      background-color: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(3px);
+      border-radius: 12px;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .religion-item:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-4px);
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 26px;
+      }
+
+      #searchInput {
+        font-size: 15px;
+        padding: 10px 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 22px;
+      }
+
+      .back-btn {
+        font-size: 12px;
+        padding: 6px 10px;
+      }
+
+      .religion-item {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back Button -->
+  <a href="index.html" class="back-btn">← Back</a>
+
+  <div class="container">
+    <h1>Explore Religions</h1>
+
+    <!-- 🔍 Search Input -->
+    <input type="text" id="searchInput" placeholder="Search religion...">
+
+    <!-- 🕌 Religion List -->
+    <div class="religion-list" id="religionList">
+      <!-- Injected via JS -->
+    </div>
+  </div>
+
+  <script>
+    const religions = [
+      "Islam", "Christianity", "Hinduism", "Buddhism", "Judaism", "Sikhism", "Jainism", "Bahá'í",
+      "Taoism", "Shinto", "Zoroastrianism", "Confucianism", "Ancient Egyptian", "Ancient Greek",
+      "Ancient Roman", "Norse", "Celtic", "Babylonian", "Animism", "African Traditional", "Aboriginal",
+      "Native American", "Shamanism", "Tribal", "Scientology", "Raëlianism", "Falun Gong", "Tenrikyo",
+      "Caodaism", "Ahmadiyya", "Unitarian Universalism", "New Age", "Atheism", "Agnosticism", "Humanism",
+      "Secular", "Freethought", "Spiritual", "Wicca", "Paganism", "Druidry", "Satanism", "Luciferianism",
+      "Devotional Sect", "Rastafarianism", "Yazidism", "Sufism", "Gnosticism", "No Religion", "Other / Not Listed"
+    ];
+
+    const listContainer = document.getElementById("religionList");
+    const searchInput = document.getElementById("searchInput");
+
+    function renderReligions(filter = "") {
+      const filtered = religions.filter(r =>
+        r.toLowerCase().includes(filter.toLowerCase())
+      );
+
+      listContainer.innerHTML = "";
+
+      filtered.forEach(religion => {
+        const urlParam = religion.toLowerCase().replace(/\s+/g, '-');
+        const item = document.createElement("a");
+        item.href = `mosques.html?religion=${urlParam}`;
+        item.className = "religion-item";
+        item.textContent = religion;
+        listContainer.appendChild(item);
+      });
+    }
+
+    searchInput.addEventListener("input", e => {
+      renderReligions(e.target.value);
+    });
+
+    renderReligions(); // initial load
+  </script>
+
+</body>
+</html>
